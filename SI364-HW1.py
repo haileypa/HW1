@@ -2,6 +2,7 @@
 ## SI 364 F17
 ## Due: September 19, 2017
 ## 500 points
+## Hailey Patterson
 
 ## PART 1 - 100 points
 
@@ -14,7 +15,9 @@
 ## [PROBLEM 1] - 150 points
 ## Below is code for one of the simplest possible Flask applications. Edit the code so that once you run this application locally and go to the URL 'http://localhost:5000/class', you see a page that says "Welcome to SI 364!"
 
+import requests
 from flask import Flask
+
 app = Flask(__name__)
 app.debug = True
 
@@ -22,6 +25,14 @@ app.debug = True
 def hello_to_you():
     return 'Hello!'
 
+@app.route('/class')
+def class_SI364():
+    return 'Welcome to SI 364!'
+
+@app.route('/movie/<movie_title>')
+def movie_dict(movie_title):
+	r = requests.get("https://itunes.apple.com/search?term={0}".format(movie_title))
+	return r.text
 
 if __name__ == '__main__':
     app.run()
